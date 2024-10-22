@@ -10,7 +10,7 @@ double** read_csv(const char *filename, int *rows, int *cols) {
     }
 
     // Temporary storage for lines
-    char buffer[1024];
+    char buffer[10192];
     double **data = NULL;
     int row_count = 0;
     int col_count = 0;
