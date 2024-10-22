@@ -1,11 +1,16 @@
 import pickle 
 import m2cgen as m2c
 import re
+import numpy as np
+import csv
 
 o = "./random_forest_model.c"
 qo = "./quantized_random_forest_model.c"
 f = '../RandomForest_cls_0.pkl'
 sf = '../Scaler_per_cls_0.pkl'
+out_data = '../data.csv'
+data_f = "../features.npy"
+out_scaler = '../scaler_vals.csv'
 
 scaling_factor = 10000
 data_type_regex = re.compile(r"\b(double|float)\b")
@@ -16,6 +21,17 @@ def read_in_model(model_filename):
 
 def read_in_scaler(scaler_filename):
     return pickle.load(open(scaler_filename,'rb'))
+
+def read_in_data(data_filename, csv_filename):
+    data = np.load(data_filename)
+    with open(csv_filename, mode='w', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerows(data)
+
+def unpack_scaler(scaler, out_filename):
+    center = scaler.center_
+    scale = scaler.scale_
+    np.savetxt(out_filename, np.vstack([center, scale]), delimiter=',', header='center,scale', comments='')
 
 def make_random_forest_c(model, outfilename):
     with open(outfilename, "w") as f:
@@ -47,6 +63,10 @@ if __name__=='__main__':
     model = read_in_model(f)
     print("Reading Scaler")
     scaler = read_in_scaler(sf)
+    print("Dumping Scaler")
+    unpack_scaler(scaler, out_scaler)
+    print("Dumping Data")
+    read_in_data(data_f, out_data)
     print("Converting RF to C")
     make_random_forest_c(model,o)
     print("Quantizing Model")
