@@ -31,7 +31,7 @@ def read_in_data(data_filename, csv_filename):
 def unpack_scaler(scaler, out_filename):
     center = scaler.center_
     scale = scaler.scale_
-    np.savetxt(out_filename, np.vstack([center, scale]), delimiter=',', header='center,scale', comments='')
+    np.savetxt(out_filename, np.vstack([center, scale]).shape, delimiter=',', header='center,scale', comments='')
 
 def make_random_forest_c(model, outfilename):
     with open(outfilename, "w") as f:
