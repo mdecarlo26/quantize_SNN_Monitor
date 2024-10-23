@@ -1,4 +1,4 @@
-double score(double * input) {
+double apply_random_forest(double * input) {
     double var0;
     if (input[244] <= -0.5000000149011612) {
         if (input[309] <= -1.1071428656578064) {

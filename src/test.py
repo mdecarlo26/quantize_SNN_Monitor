@@ -4,8 +4,8 @@ import re
 import numpy as np
 import csv
 
-o = "./random_forest_model.c"
-qo = "./quantized_random_forest_model.c"
+o = "./random_forest.c"
+qo = "./quantized_random_forest.c"
 f = '../RandomForest_cls_0.pkl'
 sf = '../Scaler_per_cls_0.pkl'
 out_data = '../data.csv'
@@ -35,7 +35,7 @@ def unpack_scaler(scaler, out_filename):
 
 def make_random_forest_c(model, outfilename):
     with open(outfilename, "w") as f:
-        f.write(m2c.export_to_c(model))
+        f.write(m2c.export_to_c(model, function_name='apply_random_forest'))
 
 def quantize_floats(line):
     """Quantizes all floating-point numbers in a line of code."""
@@ -53,6 +53,7 @@ def convert_data_types(line):
 def go_quantize(input_file, output_file):
     with open(input_file, "r") as infile, open(output_file, "w") as outfile:
         for line in infile:
+            line = line.replace("apply_random_forest", "apply_random_forest_quantize")
             line = convert_data_types(line)
             line = quantize_floats(line)
             outfile.write(line)

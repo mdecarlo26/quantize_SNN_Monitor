@@ -1,4 +1,4 @@
-int score(int * input) {
+int apply_random_forest_quantize(int * input) {
     int var0;
     if (input[244] <= -5000) {
         if (input[309] <= -11071) {
