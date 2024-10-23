@@ -61,8 +61,43 @@ void apply_robust_scaling(double **data, int n_samples, int n_features, double *
     }
 }
 
+void apply_robust_scaling_quantize(int **data, int n_samples, int n_features, int *center, int *scale) {
+    for (int i = 0; i < n_samples; i++) {
+        for (int j = 0; j < n_features; j++) {
+            data[i][j] = (data[i][j] - center[j]) / scale[j];
+        }
+    }
+}
+
+void quantize_scaler_values(int n_features, double *center_float, double *scaler_float, int *center, int* scaler)
+{
+    for (int j = 0; j < n_features; j++) {
+        center[j] = (int)(center_float[j] * SCALER_VAL);
+        scaler[j] = (int)(scaler_float[j] * SCALER_VAL);
+    }
+}
+
+int **malloc_quantize_data(int row_count, int col_count) {
+    int **data = (int **)malloc(row_count * sizeof(int *));
+    for (int i = 0; i < row_count; i++) {
+        data[i] = (int *)malloc(col_count * sizeof(int));
+    }
+    return data;
+}
+
 // Function to free the dynamically allocated memory for center and scale
 void free_scaler_params(double *center, double *scale) {
     free(center);
     free(scale);
+}
+
+void free_scaler_params_quantize(int *center, int *scale) {
+    free(center);
+    free(scale);
+}
+
+void free_quantized_data(int **data, int num_rows) {
+    for(int i = 0; i < num_rows; i++){
+        free(data[i]);
+    }
 }
