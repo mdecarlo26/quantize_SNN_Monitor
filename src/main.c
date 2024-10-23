@@ -1,6 +1,9 @@
 #include <stdio.h>
 #include "csv_reader.h"
 #include "scaler.h"
+#include "inference.h"
+#include "random_forest.h"
+#include "quantize_random_forest.h"
 
 int main()
 {
@@ -29,6 +32,20 @@ int main()
     printf("Scaling\n");
     apply_robust_scaling(data, row_cnt, col_cnt, center, scale);
     apply_robust_scaling_quantize(data_quantized, row_cnt, col_cnt, center_quantize, scaler_quantize);
+
+    int *quantize_pred = malloc(row_cnt * sizeof(int));
+    double *pred = malloc(row_cnt * sizeof(double));
+
+    for(int i = 0; i < 0; i++){
+        pred[i] = apply_random_forest(data);
+    }
+
+    for(int i = 0; i < 0; i++){
+        quantize_pred[i] = apply_random_forest_quantize(data_quantized);
+    }
+
+    // double mse = compute_error(, pred, row_cnt);
+    // double mse_quantize = compute_error_quantized(, quantize_pred, row_cnt);
 
     free_scaler_params(center, scale);
     free_scaler_params_quantize(center_quantize, scaler_quantize);
