@@ -1,0 +1,11 @@
+./main
+Data loaded: 1000 rows, 550 columns.
+Scaler loaded: 550 rows, 2 columns.
+Full Scaling
+3.152613, 3.866667, 1.363948
+Quantize Scaling
+3154, 3866, 1363
+Full Tree
+Quantized Tree
+4.212761, 256339920
+Freeing Data

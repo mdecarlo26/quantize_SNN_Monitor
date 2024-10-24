@@ -1,6 +1,7 @@
 #include "scaler.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 // Function to load the scaler parameters (center and scale) from a CSV file
 void load_scaler_params(const char *filename, double **center, double **scale, int *n_features) {
@@ -10,7 +11,7 @@ void load_scaler_params(const char *filename, double **center, double **scale, i
         exit(1);
     }
 
-    char buffer[1024];
+    char buffer[2048];
     int count = 0;
 
     fgets(buffer, sizeof(buffer), file);  // Read header line ("Center,Scale")
@@ -50,14 +51,16 @@ void apply_robust_scaling(double **data, int n_samples, int n_features, double *
             data[i][j] = (data[i][j] - center[j]) / scale[j];
         }
     }
+    printf("%f, %f, %f\n", data[100][100], center[100], scale[100]);
 }
 
 void apply_robust_scaling_quantize(int **data, int n_samples, int n_features, int *center, int *scale) {
     for (int i = 0; i < n_samples; i++) {
         for (int j = 0; j < n_features; j++) {
-            data[i][j] = (data[i][j] - center[j]) / scale[j];
+            data[i][j] = (data[i][j] - center[j]) * SCALER_VAL / scale[j];
         }
     }
+    printf("%d, %d, %d\n", data[100][100], center[100], scale[100]);
 }
 
 void quantize_scaler_values(int n_features, double *center_float, double *scaler_float, int *center, int* scaler)
@@ -73,9 +76,10 @@ int **quantize_data(double **d, int row_count, int col_count)
 	int **data = malloc_quantize_data(row_count, col_count);
 	for (int i = 0; i < row_count; i++) {
 		for (int j = 0; j < col_count; j++) {
-			data[i][j] = (int)d[i][j] * SCALER_VAL;
+			data[i][j] = (int)(d[i][j] * SCALER_VAL);
 		}
 	}
+	return data;
 }
 
 int **malloc_quantize_data(int row_count, int col_count) {

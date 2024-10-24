@@ -10,7 +10,9 @@ int main()
     int row_cnt,col_cnt;
     double **data = read_csv("../data.csv", &row_cnt, &col_cnt);
     int **data_quantized = quantize_data(data, row_cnt, col_cnt);
+    //printf("%f, %d\n", data[100][100], data_quantized[100][100]);
     printf("Data loaded: %d rows, %d columns.\n", row_cnt, col_cnt);
+
 
     int n_features;
     double *center = NULL;
@@ -29,24 +31,31 @@ int main()
         exit(EXIT_FAILURE);
     }
 
-    printf("Scaling\n");
+    printf("Full Scaling\n");
     apply_robust_scaling(data, row_cnt, col_cnt, center, scale);
+
+    printf("Quantize Scaling\n");
     apply_robust_scaling_quantize(data_quantized, row_cnt, col_cnt, center_quantize, scaler_quantize);
 
     int *quantize_pred = malloc(row_cnt * sizeof(int));
     double *pred = malloc(row_cnt * sizeof(double));
 
-    for(int i = 0; i < 0; i++){
+    printf("Full Tree\n");
+    for(int i = 0; i < row_cnt; i++){
         pred[i] = apply_random_forest(data[i]);
     }
 
-    for(int i = 0; i < 0; i++){
+    printf("Quantized Tree\n");
+    for(int i = 0; i < row_cnt; i++){
         quantize_pred[i] = apply_random_forest_quantize(data_quantized[i]);
     }
 
+    printf("%f, %d\n", pred[0], quantize_pred[0]);
     // double mse = compute_error(, pred, row_cnt);
     // double mse_quantize = compute_error_quantized(, quantize_pred, row_cnt);
-
+    printf("Freeing Data\n");
+    free(quantize_pred);
+    free(pred);
     free_scaler_params(center, scale);
     free_scaler_params_quantize(center_quantize, scaler_quantize);
     free_quantized_data(data_quantized, row_cnt);

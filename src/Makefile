@@ -20,4 +20,9 @@ $(EXEC): $(OBJS)
 clean:
 	rm -f $(OBJS) $(EXEC)
 
-.PHONY: all clean
+run:
+	./$(EXEC)
+
+redo: all run
+
+.PHONY: all clean run redo
