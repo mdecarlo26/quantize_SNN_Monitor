@@ -1,5 +1,6 @@
 #include "scaler.h"
 #include <string.h>
+#include <stdlib.h>
 
 // Function to load the scaler parameters (center and scale) from a CSV file
 void load_scaler_params(const char *filename, double **center, double **scale, int *n_features) {
@@ -75,6 +76,16 @@ void quantize_scaler_values(int n_features, double *center_float, double *scaler
         center[j] = (int)(center_float[j] * SCALER_VAL);
         scaler[j] = (int)(scaler_float[j] * SCALER_VAL);
     }
+}
+
+int **quantize_data(double **d, int row_count, int col_count)
+{
+	int **data = malloc_quantize_data(row_count, col_count);
+	for (int i = 0; i < row_count; i++) {
+		for (int j = 0; j < col_count; j++) {
+			data[i][j] = (int)d[i][j] * SCALER_VAL;
+		}
+	}
 }
 
 int **malloc_quantize_data(int row_count, int col_count) {

@@ -9,7 +9,7 @@ int main()
 {
     int row_cnt,col_cnt;
     double **data = read_csv("../data.csv", &row_cnt, &col_cnt);
-    int **data_quantized = quantize_data(row_cnt, col_cnt);
+    int **data_quantized = quantize_data(data, row_cnt, col_cnt);
     printf("Data loaded: %d rows, %d columns.\n", row_cnt, col_cnt);
 
     int n_features;
@@ -37,11 +37,11 @@ int main()
     double *pred = malloc(row_cnt * sizeof(double));
 
     for(int i = 0; i < 0; i++){
-        pred[i] = apply_random_forest(data);
+        pred[i] = apply_random_forest(data[i]);
     }
 
     for(int i = 0; i < 0; i++){
-        quantize_pred[i] = apply_random_forest_quantize(data_quantized);
+        quantize_pred[i] = apply_random_forest_quantize(data_quantized[i]);
     }
 
     // double mse = compute_error(, pred, row_cnt);

@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 #define SCALER 1000
 
 int *malloc_quantized_prediction(int row_num)
