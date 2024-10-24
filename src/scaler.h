@@ -5,6 +5,7 @@
 #include <stdlib.h>
 
 #define SCALER_VAL 1000
+#define SCALER_FLOAT 1000.0
 
 // Function to load the scaler parameters (center and scale)
 void load_scaler_params(const char *filename, double **center, double **scale, int *n_features);

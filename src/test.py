@@ -12,7 +12,7 @@ out_data = '../data.csv'
 data_f = "../features.npy"
 out_scaler = '../scaler_vals.csv'
 
-scaling_factor = 10000
+scaling_factor = 1000
 data_type_regex = re.compile(r"\b(double|float)\b")
 float_regex = re.compile(r"(-?\d+\.\d+)")
 

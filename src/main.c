@@ -50,7 +50,10 @@ int main()
         quantize_pred[i] = apply_random_forest_quantize(data_quantized[i]);
     }
 
-    printf("%f, %d\n", pred[0], quantize_pred[0]);
+    for(int i = 0; i < 5; i++){
+        printf("%f, %d, %f\n", pred[i], quantize_pred[i], quantize_pred[i] / SCALER_FLOAT / SCALER_FLOAT);
+    }
+
     // double mse = compute_error(, pred, row_cnt);
     // double mse_quantize = compute_error_quantized(, quantize_pred, row_cnt);
     printf("Freeing Data\n");
