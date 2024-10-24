@@ -13,41 +13,31 @@ void load_scaler_params(const char *filename, double **center, double **scale, i
     char buffer[1024];
     int count = 0;
 
-    fgets(buffer, sizeof(buffer), file);  // Skip header line
+    fgets(buffer, sizeof(buffer), file);  // Read header line ("Center,Scale")
 
-    // Read first data row to determine the number of features (columns)
-    fgets(buffer, sizeof(buffer), file);
-    char *value = strtok(buffer, ",");
-    while (value) {
+    // Read the file line by line to count the number of features (rows)
+    while (fgets(buffer, sizeof(buffer), file)) {
         count++;
-        value = strtok(NULL, ",");
     }
     *n_features = count;
 
-    // Allocate memory for center and scale arrays
+    // Allocate memory for center and scale arrays based on the number of features
     *center = (double *)malloc(count * sizeof(double));
     *scale = (double *)malloc(count * sizeof(double));
 
-    // Rewind the file and skip header again
+    // Rewind the file to read the data again
     rewind(file);
     fgets(buffer, sizeof(buffer), file);  // Skip header line
 
-    // Read center values
-    fgets(buffer, sizeof(buffer), file);
+    // Read center and scale values from each row
     int i = 0;
-    value = strtok(buffer, ",");
-    while (value) {
-        (*center)[i++] = atof(value);
-        value = strtok(NULL, ",");
-    }
-
-    // Read scale values
-    fgets(buffer, sizeof(buffer), file);
-    i = 0;
-    value = strtok(buffer, ",");
-    while (value) {
-        (*scale)[i++] = atof(value);
-        value = strtok(NULL, ",");
+    while (fgets(buffer, sizeof(buffer), file)) {
+        char *center_val = strtok(buffer, ",");
+        char *scale_val = strtok(NULL, ",");
+        
+        (*center)[i] = atof(center_val);
+        (*scale)[i] = atof(scale_val);
+        i++;
     }
 
     fclose(file);
