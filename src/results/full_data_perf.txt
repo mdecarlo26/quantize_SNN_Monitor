@@ -1,0 +1,11 @@
+
+ Performance counter stats for './main':
+
+         555380344      instructions                                                          
+
+       0.653520312 seconds time elapsed
+
+       0.583071000 seconds user
+       0.067123000 seconds sys
+
+
