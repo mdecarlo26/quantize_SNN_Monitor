@@ -1,6 +1,5 @@
 CC = gcc
 
-
 EXEC = main
 
 SRCS = main.c csv_reader.c inference.c quantized_random_forest.c random_forest.c scaler.c quantize_scaler.c quantize_inference.c scaler_overhead.c
