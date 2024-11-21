@@ -1,12 +1,13 @@
 #!/bin/bash
 
-# Read from standard input
-while IFS= read -r line; do
-    # Skip lines that don't contain summary information
-    if [[ $line == *"-- Summary"* ]]; then
-        read -r line
-    fi
+input=$(cat)
 
-    # Print each word in the summary line on a new line, skipping empty values
-    echo "$line" | tr -s ' ' '\n' | grep -v '^$'
+headers=$(echo "$input" | awk 'NR==2')
+data=$(echo "$input" | awk 'NR==3')
+
+IFS=' ' read -r -a names <<< "$(echo "$headers" | sed 's/ \+/n/g' | tr -d '_')"
+IFS=' ' read -r -a values <<< "$(echo "$data" | sed 's/ ([^)]*)//g' | tr -d '_')"
+
+for i in "${!names[@]}"; do
+	echo "${names[i]} ${values[i]}"
 done
