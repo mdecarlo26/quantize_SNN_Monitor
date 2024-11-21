@@ -3,11 +3,15 @@
 input=$(cat)
 
 headers=$(echo "$input" | awk 'NR==2')
-data=$(echo "$input" | awk 'NR==3')
+values=$(echo "$input" | awk 'NR==4')
 
-IFS=' ' read -r -a names <<< "$(echo "$headers" | sed 's/ \+/n/g' | tr -d '_')"
-IFS=' ' read -r -a values <<< "$(echo "$data" | sed 's/ ([^)]*)//g' | tr -d '_')"
+headers=$(echo "$headers" | sed 's/_\+//g')  # Remove underscores
+values=$(echo "$values" | sed 's/,//g; s/([0-9.]\+%)//g; s/PROGRAM TOTALS//g')  # Remove commas, percentages, and PROGRAM TOTALS
 
-for i in "${!names[@]}"; do
-	echo "${names[i]} ${values[i]}"
+# Convert headers and values into arrays
+IFS=' ' read -ra header_array <<< "$headers"
+IFS=' ' read -ra value_array <<< "$values"
+
+for i in "${!header_array[@]}"; do
+  echo "${header_array[$i]} ${value_array[$i]}"
 done
