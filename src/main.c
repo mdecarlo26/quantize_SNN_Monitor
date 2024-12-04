@@ -5,7 +5,9 @@
 #define QUANTIZE_FLAG 
 
 #ifdef QUANTIZE_FLAG
-#include "quantize_random_forest.h"
+//#include "quantize_random_forest.h"
+#include "quantize_XGB.h"
+//#include "quantize_LGBM.h"
 #include "quantize_scaler.h"
 #include "quantize_inference.h"
 
@@ -49,7 +51,9 @@ int main()
 
     printf("Quantized Tree\n");
     for(int i = 0; i < row_cnt; i++){
-        quantize_pred[i] = apply_random_forest_quantize(data_quantized[i]);
+        //quantize_pred[i] = apply_random_forest_quantize(data_quantized[i]);
+        //quantize_pred[i] = apply_LGBM_quantize(data_quantized[i]);
+        quantize_pred[i] = apply_XGB_quantize(data_quantized[i]);
     }
 
     // double mse_quantize = compute_error_quantized(, quantize_pred, row_cnt);

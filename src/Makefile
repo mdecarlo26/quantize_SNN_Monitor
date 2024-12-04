@@ -2,11 +2,11 @@ CC = gcc
 
 EXEC = main
 
-SRCS = main.c csv_reader.c inference.c quantized_random_forest.c random_forest.c scaler.c quantize_scaler.c quantize_inference.c scaler_overhead.c
+SRCS = main.c csv_reader.c inference.c quantized_random_forest.c random_forest.c scaler.c quantize_scaler.c quantize_inference.c scaler_overhead.c quantized_LGBM.c quantized_XGB.c 
 
 OBJS = $(SRCS:.c=.o)
 
-HDRS = csv_reader.h inference.h quantized_random_forest.h random_forest.h scaler.h quantize_scaler.h quantize_inference.h scaler_overhead.h
+HDRS = csv_reader.h inference.h quantized_random_forest.h random_forest.h scaler.h quantize_scaler.h quantize_inference.h scaler_overhead.h quantized_XGB.h quantized_LGBM.h
 
 all: $(EXEC)
 
