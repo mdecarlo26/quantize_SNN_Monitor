@@ -1,0 +1,3 @@
+3.3 volts
+118 micro A/MHz
+16 MHz

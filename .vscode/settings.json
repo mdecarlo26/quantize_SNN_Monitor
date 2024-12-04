@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "scaler.h": "c"
+        "scaler.h": "c",
+        "scaler_overhead.h": "c",
+        "quantize_random_forest.h": "c"
     }
 }
