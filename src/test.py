@@ -4,9 +4,9 @@ import re
 import numpy as np
 import csv
 
-o = "./random_forest.c"
-qo = "./quantized_random_forest.c"
-f = '../RandomForest_cls_0.pkl'
+o = "./CatBoost.c"
+qo = "./quantized_CatBoost.c"
+f = '../CatBoost_cls_0.pkl'
 sf = '../Scaler_per_cls_0.pkl'
 out_data = '../data.csv'
 data_f = "../features.npy"
@@ -35,7 +35,7 @@ def unpack_scaler(scaler, out_filename):
 
 def make_random_forest_c(model, outfilename):
     with open(outfilename, "w") as f:
-        f.write(m2c.export_to_c(model, function_name='apply_random_forest'))
+        f.write(m2c.export_to_c(model, function_name='apply_CatBoost'))
 
 def quantize_floats(line):
     """Quantizes all floating-point numbers in a line of code."""
@@ -53,7 +53,7 @@ def convert_data_types(line):
 def go_quantize(input_file, output_file):
     with open(input_file, "r") as infile, open(output_file, "w") as outfile:
         for line in infile:
-            line = line.replace("apply_random_forest", "apply_random_forest_quantize")
+            line = line.replace("apply_CatBoost", "apply_CatBoost_quantize")
             line = convert_data_types(line)
             line = quantize_floats(line)
             outfile.write(line)
@@ -62,12 +62,12 @@ def go_quantize(input_file, output_file):
 if __name__=='__main__':
     print("Reading Model")
     model = read_in_model(f)
-    print("Reading Scaler")
-    scaler = read_in_scaler(sf)
-    print("Dumping Scaler")
-    unpack_scaler(scaler, out_scaler)
-    print("Dumping Data")
-    read_in_data(data_f, out_data)
+    # print("Reading Scaler")
+    # scaler = read_in_scaler(sf)
+    # print("Dumping Scaler")
+    # unpack_scaler(scaler, out_scaler)
+    # print("Dumping Data")
+    # read_in_data(data_f, out_data)
     print("Converting RF to C")
     make_random_forest_c(model,o)
     print("Quantizing Model")

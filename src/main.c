@@ -5,16 +5,16 @@
 #define QUANTIZE_FLAG 
 
 #ifdef QUANTIZE_FLAG
-//#include "quantize_random_forest.h"
-#include "quantize_XGB.h"
-//#include "quantize_LGBM.h"
+#include "quantize_random_forest.h"
+// #include "quantized_XGB.h"
+//#include "quantized_LGBM.h"
 #include "quantize_scaler.h"
 #include "quantize_inference.h"
 
 #else
-#include "scaler.h"
-#include "inference.h"
-#include "random_forest.h"
+// #include "scaler.h"
+// #include "inference.h"
+// #include "random_forest.h"
 #endif
 
 int main()
@@ -63,16 +63,16 @@ int main()
     free_quantized_data(data_quantized, row_cnt);
 
 #else
-    printf("Full Scaling\n");
-    apply_robust_scaling(data, row_cnt, col_cnt, center, scale);
+    // printf("Full Scaling\n");
+    // apply_robust_scaling(data, row_cnt, col_cnt, center, scale);
 
-    double *pred = malloc(row_cnt * sizeof(double));
+    // double *pred = malloc(row_cnt * sizeof(double));
 
-    printf("Full Tree\n");
-    for(int i = 0; i < row_cnt; i++){
-        pred[i] = apply_random_forest(data[i]);
-    }
-    free(pred);
+    // printf("Full Tree\n");
+    // for(int i = 0; i < row_cnt; i++){
+    //     pred[i] = apply_random_forest(data[i]);
+    // }
+    // free(pred);
 
     // double mse = compute_error(, pred, row_cnt);
 #endif

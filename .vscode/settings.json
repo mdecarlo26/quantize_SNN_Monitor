@@ -2,6 +2,7 @@
     "files.associations": {
         "scaler.h": "c",
         "scaler_overhead.h": "c",
-        "quantize_random_forest.h": "c"
+        "quantize_random_forest.h": "c",
+        "quantize_xgb.h": "c"
     }
 }
