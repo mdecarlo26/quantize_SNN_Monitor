@@ -1,0 +1,14 @@
+Instruction Reads: 43552189
+Instruction L1 Cache Misses: 713453
+Instruction Last-level Cache Misses: 266422
+Data Reads: 18596796
+Data L1 Cache Misses: 138396
+Data Last-level Cache Misses: 136138
+Data Writes: 2390487
+Data L1 Cache Misses on Writes: 37497
+Data Last-level Cache Misses on Writes: 35754
+Branch Instructions: 2087608
+Branch Mispredictions: 329261
+Branch Indirects: 2011
+Branch Indirect Mispredictions: 0
+Integer Operations: 18818366

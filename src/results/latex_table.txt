@@ -1,0 +1,32 @@
+\begin{table}[ht]
+\centering
+\begin{tabular}{|l|r|r|r|}
+\hline
+\textbf{Metric} & \textbf{XGB_prepped} & \textbf{LGBM_prepped} & \textbf{rf_prepped}  \\
+\hline
+Instruction Reads & 43,552,189 & 44,422,718 & 47,255,907  \\
+Instruction L1 Cache Misses & 713,453 & 822,185 & 1,292,698  \\
+Instruction Last-level Cache Misses & 266,422 & 16,361 & 286,823  \\
+Data Reads & 18,596,796 & 18,844,353 & 19,924,657  \\
+Data L1 Cache Misses & 138,396
+37,497 & 137,201
+37,325 & 138,812
+36,287  \\
+Data Last-level Cache Misses & 136,138
+35,754 & 135,984
+35,755 & 137,393
+35,775  \\
+Data Writes & 2,390,487 & 2,490,487 & 2,540,487  \\
+Data L1 Cache Misses on Writes & 37,497 & 37,325 & 36,287  \\
+Data Last-level Cache Misses on Writes & 35,754 & 35,755 & 35,775  \\
+Branch Instructions & 2,087,608 & 2,161,388 & 2,676,543  \\
+Branch Mispredictions & 329,261 & 299,856 & 557,106  \\
+Branch Indirects & 2,011 & 2,011 & 2,011  \\
+Branch Indirect Mispredictions & 0 & 0 & 0  \\
+Integer Operations & 18,818,366 & 19,439,812 & 19,627,315  \\
+
+\hline
+\end{tabular}
+\caption{Cache and Instruction Metrics for Multiple Programs}
+\label{tab:metrics_multicol}
+\end{table}
